@@ -31,16 +31,18 @@ func dirTree(out *os.File, path string, printFiles bool) (error) {
 		for i := 0; i < depth; i++ {
 			fmt.Print("│\t")
 		}
-
-		fmt.Println("├───" + file.Name())
+		if file == files[len(files)-1]{
+			fmt.Println("└───" + file.Name())
+		} else {
+			fmt.Println("├───" + file.Name())
+		}
+		
 		if file.IsDir() {
 			depth++
 			childFolder := filepath.Join(path, file.Name())
 			dirTree(out, childFolder, printFiles)
 		}
-		if file == files[len(files)-1]{
-			fmt.Println("└───" + file.Name())
-		}
+		
 	}
 	depth--
 	return nil
